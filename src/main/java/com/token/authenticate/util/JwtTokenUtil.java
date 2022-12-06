@@ -20,4 +20,12 @@ public class JwtTokenUtil {
                 .compact()
                 ;
     }
+
+    private static Claims extractClaims(String token, String secretKey) {
+        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
+    }
+
+    public static String getUserName(String token, String secretKey) {
+        return extractClaims(token, secretKey).get("userName", String.class);
+    }
 }

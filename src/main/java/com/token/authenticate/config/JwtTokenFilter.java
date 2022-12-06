@@ -1,6 +1,7 @@
 package com.token.authenticate.config;
 
 import com.token.authenticate.service.UserService;
+import com.token.authenticate.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -43,6 +44,10 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
+
+        String userName = JwtTokenUtil.getUserName(token, secretKey);
+        log.info("userName: {}", userName);
+
 
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken("", null, List.of(new SimpleGrantedAuthority("")));
         authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
