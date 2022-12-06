@@ -46,6 +46,11 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             return;
         }
 
+        if(JwtTokenUtil.isExpired(token, secretKey)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         String userName = JwtTokenUtil.getUserName(token, secretKey);
         log.info("userName: {}", userName);
 

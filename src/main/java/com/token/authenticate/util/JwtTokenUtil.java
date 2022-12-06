@@ -28,4 +28,9 @@ public class JwtTokenUtil {
     public static String getUserName(String token, String secretKey) {
         return extractClaims(token, secretKey).get("userName", String.class);
     }
+
+    public static boolean isExpired(String token, String secretKey) {
+        Date expiredDate = extractClaims(token, secretKey).getExpiration();
+        return expiredDate.before(new Date());
+    }
 }
