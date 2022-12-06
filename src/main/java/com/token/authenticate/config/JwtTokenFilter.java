@@ -1,5 +1,6 @@
 package com.token.authenticate.config;
 
+import com.token.authenticate.domain.entity.User;
 import com.token.authenticate.service.UserService;
 import com.token.authenticate.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
@@ -48,8 +49,10 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         String userName = JwtTokenUtil.getUserName(token, secretKey);
         log.info("userName: {}", userName);
 
+        User user = userService.getUserByUserName(userName);
+        log.info("userRole : {}", user.getRole().name());
 
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken("", null, List.of(new SimpleGrantedAuthority("")));
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(user.getUserName(), null, List.of(new SimpleGrantedAuthority(user.getRole().name())));
         authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         filterChain.doFilter(request, response);

@@ -49,4 +49,9 @@ public class UserService {
 
         return JwtTokenUtil.createToken(userName, secretKey, expireTime);
     }
+
+    public User getUserByUserName(String userName) {
+        return userRepository.findByUserName(userName)
+                .orElseThrow(() -> new TokenAuthenticateAppException(ErrorCode.NOT_FOUND, "해당 Token에 담긴 정보와 일치하는 회원이 없습니다."));
+    }
 }
