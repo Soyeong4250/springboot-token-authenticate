@@ -43,4 +43,5 @@
 | :---------------------------------------: | :----------------------------------------------------------: | :----------------------: | :--: |
 |                 회원가입                  | [회원가입](https://github.com/Soyeong4250/spring-security-exercise/blob/master/note/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85.md) | POST /api/v1/users/join  |      |
 |                  로그인                   | [Login](https://github.com/Soyeong4250/spring-security-exercise/blob/master/note/Login.md) | POST /api/v1/users/login |      |
-| JWT로 접근 권한 인증하기 (with 댓글 등록) | [JWT 권한 부여](https://github.com/Soyeong4250/spring-security-exercise/blob/master/note/JWT%EC%9D%B4%EC%9A%A9%ED%95%98%EA%B8%B0.md) |   POST /api/v1/reviews   |      |
+| JWT로 접근 권한 인증하기 (with 댓글 등록) | [JWT 권한 부여](https://github.com/Soyeong4250/spring-security-exercise/blob/master/note/JWT%EC%9D%B4%EC%9A%A9%ED%95%98%EA%B8%B0.md) |                          |      |
+|                 댓글 등록                 | [Review 등록](https://github.com/Soyeong4250/spring-security-exercise/blob/master/note/Review%EB%93%B1%EB%A1%9D.md) |   POST /api/v1/reviews   |      |
