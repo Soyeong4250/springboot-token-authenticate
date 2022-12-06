@@ -35,6 +35,15 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             return;
         }
 
+        String token;
+        try{
+            token = authorizationHeader.split(" ")[1];
+        } catch (Exception e) {
+            log.error("token 추출에 실패했습니다.");
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken("", null, List.of(new SimpleGrantedAuthority("")));
         authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
