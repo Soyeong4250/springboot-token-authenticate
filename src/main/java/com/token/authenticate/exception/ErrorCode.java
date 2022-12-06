@@ -1,0 +1,15 @@
+package com.token.authenticate.exception;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import org.springframework.http.HttpStatus;
+
+@Getter
+@AllArgsConstructor
+public enum ErrorCode {
+
+    DUPLICATE_USER_NAME(HttpStatus.CONFLICT,"");
+
+    private HttpStatus status;
+    private String message;
+}
