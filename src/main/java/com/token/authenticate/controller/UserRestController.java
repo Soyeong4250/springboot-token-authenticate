@@ -30,7 +30,7 @@ public class UserRestController {
     @PostMapping("/login")
     public Response<UserLoginRes> login(@RequestBody UserLoginReq userLoginReq) {
         String token = userService.login(userLoginReq.getUserName(), userLoginReq.getPassword());
-        return Response.success(new UserLoginRes("token"));
+        return Response.success(new UserLoginRes(token));
     }
 
 }

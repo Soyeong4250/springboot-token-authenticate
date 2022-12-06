@@ -6,8 +6,10 @@ import com.token.authenticate.domain.entity.User;
 import com.token.authenticate.exception.ErrorCode;
 import com.token.authenticate.exception.TokenAuthenticateAppException;
 import com.token.authenticate.repository.UserRepository;
+import com.token.authenticate.util.TokenUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,9 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder encoder;
+    @Value("${jwt.token.secret}")
+    private String secretKey;
+    private long expireTime = 1000L * 60 * 60;
 
     public UserJoinRes join(UserJoinReq request) {
 
@@ -35,7 +40,13 @@ public class UserService {
     }
 
     public String login(String userName, String password) {
+        User user = userRepository.findByUserName(userName)
+                .orElseThrow(() -> new TokenAuthenticateAppException(ErrorCode.NOT_FOUND, String.format("%s와 일치하는 회원을 찾을 수 없습니다.", userName)));
 
-        return "token";
+        if(!encoder.matches(password, user.getPassword())) {
+            throw new TokenAuthenticateAppException(ErrorCode.INVALID_PASSWORD, "userName 또는 password가 잘못 되었습니다.");
+        }
+
+        return TokenUtil.createToken(userName, secretKey, expireTime);
     }
 }
