@@ -1,6 +1,7 @@
 package com.token.authenticate.domain.dto;
 
 import com.token.authenticate.domain.entity.User;
+import com.token.authenticate.domain.entity.UserRole;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -17,6 +18,7 @@ public class UserJoinReq {
                 .userName(this.userName)
                 .password(password)
                 .email(this.email)
+                .role(UserRole.USER)
                 .build();
     }
 }

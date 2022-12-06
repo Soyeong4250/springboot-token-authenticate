@@ -26,6 +26,6 @@ public class User {
     private String email;
 
     @Enumerated(EnumType.STRING)
-    private UserRole userRole;
+    private UserRole role;
 
 }
