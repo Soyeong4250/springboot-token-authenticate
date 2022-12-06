@@ -39,7 +39,7 @@
 
 ## 💻 구현 기능
 
-|                   기능                    |                             Note                             |       API Mapping        |  ex  |
+|                   기능                    |                             Note                             |        End Point         |  ex  |
 | :---------------------------------------: | :----------------------------------------------------------: | :----------------------: | :--: |
 |                 회원가입                  | [회원가입](https://github.com/Soyeong4250/spring-security-exercise/blob/master/note/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85.md) | POST /api/v1/users/join  |      |
 |                  로그인                   | [Login](https://github.com/Soyeong4250/spring-security-exercise/blob/master/note/Login.md) | POST /api/v1/users/login |      |
