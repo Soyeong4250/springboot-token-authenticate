@@ -6,7 +6,7 @@ import com.token.authenticate.domain.entity.User;
 import com.token.authenticate.exception.ErrorCode;
 import com.token.authenticate.exception.TokenAuthenticateAppException;
 import com.token.authenticate.repository.UserRepository;
-import com.token.authenticate.util.TokenUtil;
+import com.token.authenticate.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -47,6 +47,6 @@ public class UserService {
             throw new TokenAuthenticateAppException(ErrorCode.INVALID_PASSWORD, "userName 또는 password가 잘못 되었습니다.");
         }
 
-        return TokenUtil.createToken(userName, secretKey, expireTime);
+        return JwtTokenUtil.createToken(userName, secretKey, expireTime);
     }
 }
