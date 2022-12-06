@@ -33,4 +33,9 @@ public class UserService {
                 .userRole(user.getRole().name())
                 .build();
     }
+
+    public String login(String userName, String password) {
+
+        return "token";
+    }
 }

@@ -2,6 +2,8 @@ package com.token.authenticate.controller;
 
 import com.token.authenticate.domain.dto.UserJoinReq;
 import com.token.authenticate.domain.dto.UserJoinRes;
+import com.token.authenticate.domain.dto.UserLoginReq;
+import com.token.authenticate.domain.dto.UserLoginRes;
 import com.token.authenticate.domain.entity.Response;
 import com.token.authenticate.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +25,12 @@ public class UserRestController {
     public Response<UserJoinRes> join(@RequestBody UserJoinReq userJoinReq) {
         UserJoinRes user = userService.join(userJoinReq);
         return Response.success(new UserJoinRes(user.getUserName(), user.getEmail(), user.getUserRole()));
+    }
+
+    @PostMapping("/login")
+    public Response<UserLoginRes> login(@RequestBody UserLoginReq userLoginReq) {
+        String token = userService.login(userLoginReq.getUserName(), userLoginReq.getPassword());
+        return Response.success(new UserLoginRes("token"));
     }
 
 }
