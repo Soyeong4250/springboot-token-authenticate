@@ -3,6 +3,7 @@ package com.token.authenticate.config;
 import com.token.authenticate.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,6 +26,15 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        final String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+        log.info("authorizationHeader : {}", authorizationHeader);
+
+        if(authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            log.error("인증헤더가 잘못 되었습니다.");
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken("", null, List.of(new SimpleGrantedAuthority("")));
         authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
